@@ -18,6 +18,10 @@
 #include "lcurlapi.h"
 #include "lcutils.h"
 
+#ifdef _WIN32
+#include <winsock2.h>
+#endif
+
 /*export*/
 #ifdef _WIN32
 #  define LCURL_EXPORT_API __declspec(dllexport)
@@ -427,6 +431,16 @@ static const lcurl_const_t lcurl_flags[] = {
 #endif
 
 static int luaopen_lcurl_(lua_State *L, const struct luaL_Reg *func){
+#ifdef _WIN32
+  /* Wake up Winsock for static c-ares and libcurl builds */
+  WSADATA wsaData;
+  if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
+    /* If initialization fails, print a warning but do not abort,
+       as non-network modules might still be usable. */
+    fprintf(stderr,"Warning: lcurl module failed to initialize Winsock (WSAError: %d)\n",
+	    (int)WSAGetLastError());
+  }
+#endif
   if (getenv("LCURL_NO_INIT") == NULL) { // do not initialize curl if env variable LCURL_NO_INIT defined
     lcurl_init_default(L);
   }

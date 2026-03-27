@@ -30,3 +30,8 @@ doc/doc/
 
 #lake deps
 *.d
+
+#misc
+*.*~
+intel
+build64

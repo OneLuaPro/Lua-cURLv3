@@ -18,9 +18,8 @@ local form = curl.form()
   :add_stream("test3", "test3.txt", "text/plain", make_stream("c", 10, 4))
 
 curl.easy{
-  url           = 'http://posttestserver.com/post.php',
+  url           = "http://httpbin.org/post",
   writefunction = io.write,
   httppost      = form,
   post          = true,
 }:perform()
-

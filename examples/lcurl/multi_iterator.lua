@@ -36,7 +36,7 @@ local function multi_iterator(...)
   return function()
     while true do
       local e, t = buffers:next()
-      if t then return e, unpack(t) end
+      if t then return e, table.unpack(t) end
       if remain == 0 then break end
 
       m:wait()
