@@ -139,7 +139,7 @@ if(WIN32 AND NOT MinGW)
     ${LIBLUA_LIBDIR}
   )
   target_link_libraries(lcurl PRIVATE liblua libcurl ssl crypto nghttp2
-    ngtcp2 ngtcp2_crypto_libressl nghttp3 zlibstatic zstd brotlidec
+    ngtcp2 ngtcp2_crypto_libressl nghttp3 zlibstatic zstd_static brotlidec
     brotlicommon ws2_32 wldap32 crypt32 advapi32 bcrypt normaliz
     Secur32 IPHLPAPI
   )
